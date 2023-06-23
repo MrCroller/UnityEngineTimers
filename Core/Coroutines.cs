@@ -7,6 +7,7 @@ namespace UnityEngineTimers
 {
     public sealed class Coroutines : MonoBehaviour
     {
+
         #region Fields
 
         public const string NAME_GAMEOBJECT = "[COROUTINE_MANAGER]";
@@ -51,5 +52,6 @@ namespace UnityEngineTimers
         }
 
         #endregion
+
     }
 }

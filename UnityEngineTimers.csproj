@@ -55,11 +55,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coroutines.cs" />
-    <Compile Include="Timer.cs" />
+    <Compile Include="Core\Coroutines.cs" />
+    <Compile Include="Core\Timer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IStop.cs" />
-    <Compile Include="TimersPool.cs" />
+    <Compile Include="Core\TimersPool.cs" />
     <Compile Include="UIExtension\ImageExtension.cs" />
     <Compile Include="UIExtension\TextExtension.cs" />
   </ItemGroup>
