@@ -45,7 +45,7 @@ namespace SEC.Helpers
             }
             else
             {
-                dictionary[item].Stop();
+                dictionary[item]?.Stop();
 
                 dictionary[item] = TimersPool.GetInstance().StartTimer(() =>
                 {
@@ -79,13 +79,24 @@ namespace SEC.Helpers
             }
             else
             {
-                dictionary[item].Stop();
+                dictionary[item]?.Stop();
 
                 dictionary[item] = TimersPool.GetInstance().StartTimer(() =>
                 {
                     EndMethod();
                     dictionary.Remove(item);
                 }, time);
+            }
+        }
+
+        /// <summary>
+        /// Stops timer in the list.
+        /// </summary>
+        public void Stop(T item)
+        {
+            if (dictionary.ContainsKey(item))
+            {
+                dictionary[item]?.Stop();
             }
         }
 
