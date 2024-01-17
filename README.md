@@ -2,14 +2,18 @@
 
 Referenced UnityEngine.CoreModule.dll, UnityEngine.UI.dll, Unity.TextMeshPro.dll are removed from repository! Use your own while rebuilding solution.
 
-* **[Core](https://github.com/MrCroller/UnityEngineTimers/tree/master/Core)**
+* **[Core](https://github.com/MrCroller/UnityEngineTimers/tree/master/TimersCore)**
   * Coroutines Manager
   * Timer class
   * Timers pool manager
 * **[Extension](https://github.com/MrCroller/UnityEngineTimers/tree/master/Extension)**
-  * SpriteRenderer
-  * Image Extension
-  * Text Mesh Pro Extension
+  * Extension alpha dinamic
+  * AdapterFabric
+      * ImageAdapter
+      * SpriteRendererAdapter
+      * TextAdapter
+* **[Collections](https://github.com/MrCroller/UnityEngineTimers/tree/master/Collections)**
+  * DeadNoteList
 
 ## Getting Started
 
