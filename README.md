@@ -46,6 +46,38 @@ void Restart()
 }
 ```
 
+However, you may not need a pool of timers and want to use a single timer when needed...
+In this case, you can manually initialize an object of the timer class and work exclusively with it
+
+```csharp
+float time = 10 //seconds
+Timer timer = new();
+
+timer.Start(EndMethod, time);
+
+void EndMethod()
+{
+   Debug.Log("End Time")
+}
+```
+When this timer is started again, the current ticker will reset and all dependencies will be unsubscribed
+
+```csharp
+float time = 10 //seconds
+Timer timer = new();
+
+void Start()
+{
+   timer.Start(() => Debug.Log("End Start"), time);
+}
+
+void Handler()
+{
+    timer.Start(() => Debug.Log("End HandlerEvent"), time);
+}
+
+```
+
 ### Extension
 
 In the UI extensions there are different methods for smooth animation of the alpha channel change
