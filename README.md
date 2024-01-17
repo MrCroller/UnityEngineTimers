@@ -67,9 +67,6 @@ void EndMethod()
 When this timer is started again, the current ticker will reset and all dependencies will be unsubscribed
 
 ```csharp
-float time = 10 //seconds
-Timer timer = new();
-
 void Start()
 {
    timer.Start(() => Debug.Log("End Start"), time);
@@ -81,6 +78,14 @@ void Handler()
 }
 
 ```
+
+Also you may need to count time not based on Time.deltaTime.
+To do this, you can specify bool unscale = true in the timer start method
+```csharp
+timer.Start(Finally, time, unscale: true);
+```
+By default, timers are started based on game time (Time.deltaTime)
+
 
 ### Extension
 
