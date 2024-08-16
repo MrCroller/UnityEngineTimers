@@ -2,44 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-
 namespace UnityEngineTimers
 {
     public sealed class TimersPool : IDisposable
     {
-
         #region Fields
 
         private static TimersPool _instance;
-
         private List<Timer> _timers;
         private const int TIMERS_PRE_GENERATE = 6;
 
         #endregion
 
-
         #region Properties
 
-        private Timer Timer
+        public Timer Timer
         {
             get
             {
-                for (int i = _timers.Count - 1; i >= 0; i--)
+                // Find an inactive timer
+                foreach (var timer in _timers)
                 {
-                    if (!_timers[i].IsRunning)
+                    if (!timer.IsRunning)
                     {
-                        return _timers[i];
+                        return timer;
                     }
                 }
-                _timers.Add(new Timer());
-                return Timer;
+
+                // All timers are busy; create a new one
+                var newTimer = new Timer();
+                _timers.Add(newTimer);
+                return newTimer;
             }
         }
 
         #endregion
 
-
-        #region ClassLifeCicle
+        #region ClassLifeCycle
 
         private TimersPool()
         {
@@ -61,24 +60,22 @@ namespace UnityEngineTimers
 
         #endregion
 
-
         #region Methods
 
-        public IStop StartTimer(UnityAction method, float time, bool unscale = false) =>
-            Timer.Start(method, time, unscale);
-        public IStop StartTimer(UnityAction<float> timeTickMethod, float time, bool unscale = false) =>
-            Timer.Start(timeTickMethod, time, unscale);
-        public IStop StartTimer(UnityAction method, UnityAction<float> timeTickMethod, float time, bool unscale = false) =>
-            Timer.Start(method, timeTickMethod, time, unscale);
-
+        public IStop StartTimer(float time, UnityAction endCallback) => Timer.Start(time, endCallback);
+        public IStop StartTimer(float time, UnityAction<float> progressCallback) => Timer.Start(time, progressCallback: progressCallback);
+        public IStop StartTimer(float time, UnityAction endCallback, UnityAction<float> progressCallback) => Timer.Start(time, endCallback, progressCallback);
 
         public void Dispose()
         {
-            foreach (var timer in _timers) timer.Stop();
+            // Stop all timers and clear the pool
+            foreach (var timer in _timers)
+            {
+                timer.Stop();
+            }
             _timers.Clear();
         }
 
         #endregion
-
     }
 }
