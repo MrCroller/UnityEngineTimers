@@ -80,7 +80,6 @@ void Handler()
 ```
 
 Also you may need to count time not based on Time.deltaTime.
-To do this, you can specify bool unscale = true in the timer start method
 ```csharp
 timer.StartUnscaled(time, Finally);
 ```
