@@ -89,6 +89,7 @@ By default, timers are started based on game time (Time.deltaTime)
 You may also find it useful to simply track the timer as a flag without creating a boolean variable
 ```csharp
 Timer recharging = new();
+float rechargingTime = 2.4f;
 
 void Update()
 {
