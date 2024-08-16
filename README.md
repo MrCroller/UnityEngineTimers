@@ -28,16 +28,16 @@ var timersPool = TimersPool.GetInstance();
 Although we can create a timer separately and work with it, the access methods are already present (through encapsulation) in the class
 
 ```csharp
-timersPool.StartTimer(UnityAction method, float time);
-timersPool.StartTimer(UnityAction<float> timeTickMethod, float time);
-timersPool.StartTimer(UnityAction method, UnityAction<float> timeTickMethod, float time);
+timersPool.StartTimer(float time, UnityAction endCallback);
+timersPool.StartTimer(float time, UnityAction<float> progressCallback);
+timersPool.StartTimer(float time, UnityAction endCallback, UnityAction<float> progressCallback);
 ```
 
 Example of use:
 
 ```csharp
 float time = 10 //seconds
-IStop timer = timersPool.StartTimer(EndMethod, time)
+IStop timer = timersPool.StartTimer(time, EndMethod)
 
 void EndMethod()
 {
