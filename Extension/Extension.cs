@@ -38,7 +38,7 @@ namespace TimersSystemUnity.Extension
                 mono.gameObject.SetActive(true);
             }
 
-            TimersPool.GetInstance().StartTimer(EndMethod, GreatSelect, time);
+            TimersPool.GetInstance().StartTimer(time, EndMethod, GreatSelect);
             void GreatSelect(float progress)
             {
                 mono.SetAlpha(easing.Evaluate(progress));
@@ -73,7 +73,7 @@ namespace TimersSystemUnity.Extension
                 mono.gameObject.SetActive(true);
             }
 
-            TimersPool.GetInstance().StartTimer(EndMethodLocal, GreatSelect, time);
+            TimersPool.GetInstance().StartTimer(time, EndMethodLocal, GreatSelect);
             void GreatSelect(float progress)
             {
                 mono.SetAlpha(easing.Evaluate(progress));
@@ -113,19 +113,19 @@ namespace TimersSystemUnity.Extension
             mono.SetAlpha(0.0f);
 
             // To Visable
-            TimersPool.GetInstance().StartTimer(Wait, (float progress) => mono.SetAlpha(progress), timeToVisable);
+            TimersPool.GetInstance().StartTimer(timeToVisable, Wait, (float progress) => mono.SetAlpha(progress));
 
             void Wait()
             {
-                TimersPool.GetInstance().StartTimer(ToInvisible, timeVisible);
+                TimersPool.GetInstance().StartTimer(timeVisible, ToInvisible);
             }
 
             void ToInvisible()
             {
-                TimersPool.GetInstance().StartTimer(EndMethod, (float progress) =>
+                TimersPool.GetInstance().StartTimer(timeToInvisable, EndMethod, (float progress) =>
                 {
                     mono.SetAlpha(1.0f - progress);
-                }, timeToInvisable);
+                });
             }
 
             void EndMethod()

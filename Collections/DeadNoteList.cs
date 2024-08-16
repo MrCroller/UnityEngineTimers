@@ -35,11 +35,11 @@ namespace SEC.Helpers
         {
             if (!dictionary.Keys.Contains(item))
             {
-                var timer = TimersPool.GetInstance().StartTimer(() =>
+                var timer = TimersPool.GetInstance().StartTimer(time, () =>
                 {
                     EndMethod();
                     dictionary.Remove(item);
-                }, time);
+                });
 
                 dictionary.Add(item, timer);
             }
@@ -47,11 +47,11 @@ namespace SEC.Helpers
             {
                 dictionary[item]?.Stop();
 
-                dictionary[item] = TimersPool.GetInstance().StartTimer(() =>
+                dictionary[item] = TimersPool.GetInstance().StartTimer(time, () =>
                 {
                     EndMethod();
                     dictionary.Remove(item);
-                }, time);
+                });
             }
         }
 
@@ -69,11 +69,11 @@ namespace SEC.Helpers
 
             if (!dictionary.Keys.Contains(item))
             {
-                var timer = TimersPool.GetInstance().StartTimer(() =>
+                var timer = TimersPool.GetInstance().StartTimer(time, () =>
                 {
                     EndMethod();
                     dictionary.Remove(item);
-                }, time);
+                });
 
                 dictionary.Add(item, timer);
             }
@@ -81,11 +81,11 @@ namespace SEC.Helpers
             {
                 dictionary[item]?.Stop();
 
-                dictionary[item] = TimersPool.GetInstance().StartTimer(() =>
+                dictionary[item] = TimersPool.GetInstance().StartTimer(time, () =>
                 {
                     EndMethod();
                     dictionary.Remove(item);
-                }, time);
+                });
             }
         }
 
