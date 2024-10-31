@@ -28,16 +28,16 @@ var timersPool = TimersPool.GetInstance();
 Although we can create a timer separately and work with it, the access methods are already present (through encapsulation) in the class
 
 ```csharp
-timersPool.StartTimer(UnityAction method, float time);
-timersPool.StartTimer(UnityAction<float> timeTickMethod, float time);
-timersPool.StartTimer(UnityAction method, UnityAction<float> timeTickMethod, float time);
+timersPool.StartTimer(float time, UnityAction endCallback);
+timersPool.StartTimer(float time, UnityAction<float> progressCallback);
+timersPool.StartTimer(float time, UnityAction endCallback, UnityAction<float> progressCallback);
 ```
 
 Example of use:
 
 ```csharp
 float time = 10 //seconds
-IStop timer = timersPool.StartTimer(EndMethod, time)
+IStop timer = timersPool.StartTimer(time, EndMethod)
 
 void EndMethod()
 {
@@ -57,7 +57,7 @@ In this case, you can manually initialize an object of the timer class and work 
 float time = 10 //seconds
 Timer timer = new();
 
-timer.Start(EndMethod, time);
+timer.Start(time, EndMethod);
 
 void EndMethod()
 {
@@ -69,23 +69,35 @@ When this timer is started again, the current ticker will reset and all dependen
 ```csharp
 void Start()
 {
-   timer.Start(() => Debug.Log("End Start"), time);
+   timer.Start(time, () => Debug.Log("End Start"));
 }
 
 void Handler()
 {
-    timer.Start(() => Debug.Log("End HandlerEvent"), time);
+    timer.Start(time, () => Debug.Log("End HandlerEvent"));
 }
 
 ```
 
 Also you may need to count time not based on Time.deltaTime.
-To do this, you can specify bool unscale = true in the timer start method
 ```csharp
-timer.Start(Finally, time, unscale: true);
+timer.StartUnscaled(time, Finally);
 ```
 By default, timers are started based on game time (Time.deltaTime)
 
+
+You may also find it useful to simply track the timer as a flag without creating a boolean variable
+```csharp
+Timer recharging = new();
+float rechargingTime = 2.4f;
+
+void Update()
+{
+    if (recharging.IsRunning) return;
+    Fire();
+    recharging.Start(rechargingTime)
+}
+```
 
 ### Extension
 
@@ -119,6 +131,8 @@ float timeToInvisable = 1.5f;
 
 text.SetAplhaDynamic(timeToVisable, timeVisible, timeToInvisable);
 ```
+
+
 
 ### Collection
 
@@ -213,3 +227,5 @@ ExampleClassAdapter.Ext().SetAlpha(0.5f);
 >```
 >
 > See the "AdapterFabric" class for examples.
+
+
