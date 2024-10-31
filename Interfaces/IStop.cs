@@ -2,6 +2,6 @@
 {
     public interface IStop
     {
-        void Stop();
+        bool Stop();
     }
 }

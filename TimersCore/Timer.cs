@@ -7,6 +7,7 @@ namespace UnityEngineTimers
 {
     public sealed class Timer : IStop, IDisposable
     {
+
         #region Fields
 
         public UnityEvent OnEndTime { get; private set; }
@@ -17,6 +18,7 @@ namespace UnityEngineTimers
         private Coroutine _coroutine;
 
         #endregion
+
 
         #region Constructors
 
@@ -35,6 +37,7 @@ namespace UnityEngineTimers
         }
 
         #endregion
+
 
         #region Methods
 
@@ -76,14 +79,18 @@ namespace UnityEngineTimers
             return this;
         }
 
-        public void Stop()
+        public bool Stop()
         {
             if (_coroutine != null)
             {
                 Coroutines.StopRoutine(_coroutine);
                 ClearListeners();
                 _coroutine = null;
+
+                return true;
             }
+
+            return false;
         }
 
         private void ClearListeners()
@@ -121,5 +128,6 @@ namespace UnityEngineTimers
         }
 
         #endregion
+
     }
 }
