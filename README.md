@@ -34,7 +34,6 @@ timersPool.StartTimer(float time, UnityAction endCallback, UnityAction<float> pr
 ```
 
 Example of use:
-
 ```csharp
 float time = 10 //seconds
 IStop timer = timersPool.StartTimer(time, EndMethod)
@@ -64,6 +63,16 @@ void EndMethod()
    Debug.Log("End Time")
 }
 ```
+
+You can also check if the timer was actually stopped from the on state, so as not to call your logic every time.
+
+```csharp
+if (timer.Stop())
+{
+    gameObject.Deactivate();
+}
+```
+
 When this timer is started again, the current ticker will reset and all dependencies will be unsubscribed
 
 ```csharp
@@ -97,6 +106,14 @@ void Update()
     Fire();
     recharging.Start(rechargingTime)
 }
+```
+### Tips
+
+I recommend making a note to the timer fields:
+```csharp
+Timer t_scrollAnimate;
+Timer t_endFireState;
+Timer t_flagEndSpell;
 ```
 
 ### Extension
