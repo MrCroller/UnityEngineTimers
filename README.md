@@ -90,7 +90,9 @@ void Handler()
 
 Also you may need to count time not based on Time.deltaTime.
 ```csharp
-timer.StartUnscaled(time, Finally);
+timer.StartUnscaled(time, FinallyAction);
+
+void FinallyAction()
 ```
 By default, timers are started based on game time (Time.deltaTime)
 
@@ -107,6 +109,40 @@ void Update()
     recharging.Start(rechargingTime)
 }
 ```
+
+You can also use the returned UnityAction\<float>, which returns the timer's progress value from 0 to 1:
+
+```csharp
+timer.Start(1f, progressCallback: pr =>
+{
+    transform.scale.x = Mathf.Lerp(currentScaleX, targetScaleX, pr);
+});
+```
+
+And of course, you can combine both approaches:
+
+```csharp
+Timer recharging = new();
+float rechargingTime = 2.4f;
+
+void Update()
+{
+    if (recharging.IsRunning) return;
+    Fire();
+    recharging.Start(rechargingTime, RechargingProgressView, PlayReadySound);
+}
+
+void RechargingProgressView(float progress)
+{
+    slider.progress = progress;
+}
+
+void PlayReadySound()
+{
+    source.Play();
+}
+```
+
 ### Tips
 
 I recommend making a note to the timer fields:

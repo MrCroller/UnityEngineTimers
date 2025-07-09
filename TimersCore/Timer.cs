@@ -41,14 +41,36 @@ namespace UnityEngineTimers
 
         #region Methods
 
-        //// <summary>
+        /// <summary>
+        /// Starts the timer with scaled time.
+        /// </summary>
+        /// <param name="time">Duration of the timer in seconds.</param>
+        /// <param name="endCallback">Method to be invoked at the end of the timer (optional).</param>
+        /// <returns>Returns the Timer instance for chaining.</returns>
+        public IStop Start(float time, UnityAction endCallback = null)
+        {
+            return StartInternal(time, endCallback, null, false);
+        }
+
+        /// <summary>
+        /// Starts the timer with scaled time.
+        /// </summary>
+        /// <param name="time">Duration of the timer in seconds.</param>
+        /// <param name="progressCallback">Method to be invoked with progress updates (optional).</param>
+        /// <returns>Returns the Timer instance for chaining.</returns>
+        public IStop Start(float time, UnityAction<float> progressCallback)
+        {
+            return StartInternal(time, null, progressCallback, false);
+        }
+
+        /// <summary>
         /// Starts the timer with scaled time.
         /// </summary>
         /// <param name="time">Duration of the timer in seconds.</param>
         /// <param name="endCallback">Method to be invoked at the end of the timer (optional).</param>
         /// <param name="progressCallback">Method to be invoked with progress updates (optional).</param>
         /// <returns>Returns the Timer instance for chaining.</returns>
-        public IStop Start(float time = 1f, UnityAction endCallback = null, UnityAction<float> progressCallback = null)
+        public IStop Start(float time, UnityAction endCallback, UnityAction<float> progressCallback)
         {
             return StartInternal(time, endCallback, progressCallback, false);
         }

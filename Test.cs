@@ -11,6 +11,8 @@ namespace TimersSystemUnity
             gg.SetAplhaDynamic(3f,5f,3f);
 
             gg.Ext().SetAlpha(5);
+
+            
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using TimersSystemUnity.Interfaces;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TimersSystemUnity.Extension.Adapter
 {
