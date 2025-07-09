@@ -76,6 +76,18 @@ namespace UnityEngineTimers
         }
 
         /// <summary>
+        /// Starts the timer with scaled time.
+        /// </summary>
+        /// <param name="time">Duration of the timer in seconds.</param>
+        /// <param name="progressCallback">Method to be invoked with progress updates (optional).</param>
+        /// <param name="endCallback">Method to be invoked at the end of the timer (optional).</param>
+        /// <returns>Returns the Timer instance for chaining.</returns>
+        public IStop Start(float time, UnityAction<float> progressCallback, UnityAction endCallback)
+        {
+            return StartInternal(time, endCallback, progressCallback, false);
+        }
+
+        /// <summary>
         /// Starts the timer with unscaled time.
         /// </summary>
         /// <param name="time">Duration of the timer in seconds.</param>
