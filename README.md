@@ -152,7 +152,7 @@ Timer t_endFireState;
 Timer t_flagEndSpell;
 ```
 
-### Extension
+## Extension
 
 In the UI extensions there are different methods for smooth animation of the alpha channel change
 
